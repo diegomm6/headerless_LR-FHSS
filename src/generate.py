@@ -15,17 +15,6 @@ def generate_FHSfamily(params):
 
     return driverFHSfam.FHSfam
 
-def generate_extendedFHSfamily(params):
-
-    legnth = params['num_hdr'] + params['num_frg']
-    driverFHSfam = LR_FHSS_DriverFamily(q=legnth, regionDR="EU137")
-
-    extendedFamily = []
-    for fhs in driverFHSfam.FHSfam:
-        for i in range(10, legnth+1, 1):
-            extendedFamily.append(fhs[:i])
-
-    return extendedFamily
 
 #######################
 # Generate traffic file

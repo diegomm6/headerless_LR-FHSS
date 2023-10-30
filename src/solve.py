@@ -35,7 +35,7 @@ def solve_by_milp1(seqs, m, params):
                 if m[t][c] > -1:
                     Mvars[t, c] = model.addVar(vtype=GRB.BINARY, name="M.{}.{}".format(t, c))
 
-
+        # variable: create T_{t,s} 
         Tvars = {}
         for t in range(t_slots - max_seq_len):
             for s, seq in enumerate(seqs):
@@ -71,8 +71,8 @@ def solve_by_milp1(seqs, m, params):
 
             # expr1 = seq_len * Tvars[t, s]   # modify for extended model
 
-            s_len = num_hdr * round(gran * 233 / 102.4) + gran * (len(seqs[s]) - num_hdr)
-            expr1 = s_len * Tvars[t, s]
+            seq_len = num_hdr * round(gran * 233 / 102.4) + gran * (len(seqs[s]) - num_hdr)
+            expr1 = seq_len * Tvars[t, s]
 
             expr2 = 0
             time = t

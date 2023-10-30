@@ -16,10 +16,10 @@ from solve2 import *
 # Main
 ################
 
-num_runs = 10
+num_runs = 5
 print('num_runs: {}'.format(num_runs))
 
-num_trxs = range(500, 5000, 500)
+num_trxs = range(100, 3100, 300)
 print('num_trxs: {}'.format(num_trxs))
 
 # num_frgs = [10, 20, 40, 80]
@@ -42,7 +42,7 @@ with open('metrics-03-frgs.csv', 'a+') as file:
                         'num_trx': num_trx, # number of transmissions
                         'rd_seed': run*2,   # random seed
                         'num_hdr': 2,
-                        'granularity': 4
+                        'granularity': 6
                         }
 
                 random.seed(params['rd_seed'])
@@ -58,9 +58,6 @@ with open('metrics-03-frgs.csv', 'a+') as file:
 
                 seqs, Tt, m = generate_extended_m(params)
                 params['num_seq'] = len(seqs)
-
-                #for s, seq in enumerate(seqs):
-                #    print(f"seq nr {s}, length {len(seq)}, seq {seq}")
 
                 """
                 print(m.shape)
