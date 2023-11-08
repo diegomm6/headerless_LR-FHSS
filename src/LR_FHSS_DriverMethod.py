@@ -93,8 +93,8 @@ class LR_FHSS_DriverFamily(FHSfamily):
     def set_family(self):
         fam = []
         for id in range(self.numFHS):
-            #fhs = (self.get_lr_fhss_seq(id) * self.grid_gap) + np.random.randint(self.grid_gap)
-            fhs = self.get_lr_fhss_seq(id)
+            fhs = (self.get_lr_fhss_seq(id) * self.grid_gap) + np.random.randint(self.grid_gap)
+            #fhs = self.get_lr_fhss_seq(id)
             fam.append(fhs)
 
         return np.array(fam)

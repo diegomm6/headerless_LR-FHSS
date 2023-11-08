@@ -3,6 +3,9 @@ from gurobipy import GRB
 from gurobipy import quicksum
 import numpy as np
 
+import seaborn as sns
+import matplotlib.pyplot as plt
+
 #######################
 # Solve by MILP
 #######################
@@ -66,12 +69,17 @@ def solve_by_milp2(seqs, m, params):
                     Tvars_m[t][s] = 1
 
 
-        seq_length_range = 23  # max length(seqs) - min length(seqs) over "y" axis
+        
+        seq_length_range = 23  # max length(seqs) - min length(seqs) +1 over "y" axis
         for t in range(t_slots - max_seq_len):
 
             i = 0
             while i < num_seq:
                 sub_Tvars_m = Tvars_m[t][i : i + seq_length_range]
+
+                #if t==4779:
+                #    if i/23==155.0 or i/23==206.0:
+                #        print(i/23, Tvars_m[t][i : i + seq_length_range])
 
                 j = 0
                 while j < seq_length_range and sub_Tvars_m[j] == 1:
@@ -80,16 +88,19 @@ def solve_by_milp2(seqs, m, params):
 
                 if j:
                     Tvars_m[t][i + j - 1] = 1
+                    #Tvars_m[t][i + j - 2] = 1 # if j>1, include also maxlength -1
 
                 i += seq_length_range
-
+        
 
         # variable: create T_{t,s}
         Tvars = {}
         indeces = np.argwhere(Tvars_m > 0)
-        for id in indeces:
+        print(len(indeces))
+        for i, id in enumerate(indeces):
             t = id[0]
             s = id[1]
+            #print(f"{i} t= {t}, s= {s//23}") 
             Tvars[t, s] = model.addVar(vtype=GRB.BINARY, name="T.{}.{}".format(t, s))
 
 

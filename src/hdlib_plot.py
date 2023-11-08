@@ -257,11 +257,11 @@ def print_metrics(Tt, Tp, solve_time, params, file_name = ""):
             # print('TP:', t)
         else:
             fn += 1
-            # print('FN:', t)
+            #print('FN:', t[0], t[1]//23, t[2])
     for t in Tp:
         if t not in Tt:
             fp += 1
-            # print('FP:', t)
+            #print('FP:', t[0], t[1]//23, t[2])
 
     Tt_set = set(Tt)
     Tp_set = set(Tp)
